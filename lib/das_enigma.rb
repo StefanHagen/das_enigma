@@ -1,5 +1,6 @@
 require "das_enigma/encryption"
 require "das_enigma/decryption"
+require "das_enigma/enigma"
 
 class DasEnigma
 
