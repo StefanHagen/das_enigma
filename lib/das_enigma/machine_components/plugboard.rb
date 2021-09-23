@@ -9,8 +9,6 @@ module DasEnigma
     # pressing A wull sent the signal for letter Z to the static rotor. When a substituted signal comes back as a Z, it
     # will get swapped for the letter A.
     class Plugboard
-      ALPHABET_SYMBOLS = %i[a b c d e f g h i j k l m n o p q r s t u v w x y z].freeze
-
       attr_reader :plugboard
 
       def initialize(settings: nil)
@@ -39,7 +37,7 @@ module DasEnigma
         return plugboard_hash if settings.nil? || !settings.is_a?(Hash)
 
         # remove keys that are not a letter of the alphabet.to_sym and loop through them
-        settings.slice(*ALPHABET_SYMBOLS).each do |key, value|
+        settings.slice(*DasEnigma::Constants::ALPHABET_SYMBOLS).each do |key, value|
           # skip setting if value is already set by another key (the double-jack cables go two ways)
           next if settings.keys.include?(value.to_sym)
 
