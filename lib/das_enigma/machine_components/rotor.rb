@@ -8,40 +8,46 @@ module DasEnigma
     class Rotor
       # Historicaly correct rotors, to be used when assembling your own Enigma machine
       ROTORS = [
-        { type: 'STATIC', signal_mapping: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', introduced_in: '1924', model: 'All models' },
-        { type: 'I-C', signal_mapping: 'DMTWSILRUYQNKFEJCAZBPGXOHV', introduced_in: '1924', model: 'Commercial Enigma A, B' },
-        { type: 'II-C', signal_mapping: 'HQZGPJTMOBLNCIFDYAWVEUSRKX', introduced_in: '1924', model: 'Commercial Enigma A, B' },
-        { type: 'III-C', signal_mapping: 'UQNTLSZFMREHDPXKIBVYGJCWOA', introduced_in: '1924', model: 'Commercial Enigma A, B' },
-        { type: 'I-R', signal_mapping: 'JGDQOXUSCAMIFRVTPNEWKBLZYH', introduced_in: '7 February 1941', model: 'German Railway (Rocket)' },
-        { type: 'II-R', signal_mapping: 'NTZPSFBOKMWRCJDIVLAEYUXHGQ', introduced_in: '7 February 1941', model: 'German Railway (Rocket)' },
-        { type: 'III-R', signal_mapping: 'JVIUBHTCDYAKEQZPOSGXNRMWFL', introduced_in: '7 February 1941', model: 'German Railway (Rocket)' },
-        { type: 'UKW-R', signal_mapping: 'QYHOGNECVPUZTFDJAXWMKISRBL', introduced_in: '7 February 1941', model: 'German Railway (Rocket)' },
-        { type: 'ETW-R', signal_mapping: 'QWERTZUIOASDFGHJKPYXCVBNML', introduced_in: '7 February 1941', model: 'German Railway (Rocket)' },
-        { type: 'I-K', signal_mapping: 'PEZUOHXSCVFMTBGLRINQJWAYDK', introduced_in: 'February 1939', model: 'Swiss K' },
-        { type: 'II-K', signal_mapping: 'ZOUESYDKFWPCIQXHMVBLGNJRAT', introduced_in: 'February 1939', model: 'Swiss K' },
-        { type: 'III-K', signal_mapping: 'EHRVXGAOBQUSIMZFLYNWKTPDJC', introduced_in: 'February 1939', model: 'Swiss K' },
-        { type: 'UKW-K', signal_mapping: 'IMETCGFRAYSQBZXWLHKDVUPOJN', introduced_in: 'February 1939', model: 'Swiss K' },
-        { type: 'ETW-K', signal_mapping: 'QWERTZUIOASDFGHJKPYXCVBNML', introduced_in: 'February 1939', model: 'Swiss K' },
-        { type: 'I', signal_mapping: 'EKMFLGDQVZNTOWYHXUSPAIBRCJ', introduced_in: '1930', model: 'Enigma I' },
-        { type: 'II', signal_mapping: 'AJDKSIRUXBLHWTMCQGZNPYFVOE', introduced_in: '1930', model: 'Enigma I' },
-        { type: 'III', signal_mapping: 'BDFHJLCPRTXVZNYEIWGAKMUSQO', introduced_in: '1930', model: 'Enigma I' },
-        { type: 'IV', signal_mapping: 'ESOVPZJAYQUIRHXLNFTGKDCMWB', introduced_in: 'December 1938', model: 'M3 Army' },
-        { type: 'V', signal_mapping: 'VZBRGITYUPSDNHLXAWMJQOFECK', introduced_in: 'December 1938', model: 'M3 Army' },
-        { type: 'VI', signal_mapping: 'JPGVOUMFYQBENHZRDKASXLICTW', introduced_in: '1939', model: 'M3 & M4 Naval (FEB 1942)' },
-        { type: 'VII', signal_mapping: 'NZJHGRCXMYSWBOUFAIVLPEKQDT', introduced_in: '1939', model: 'M3 & M4 Naval (FEB 1942)' },
-        { type: 'VIII', signal_mapping: 'FKQHTLXOCBJSPDZRAMEWNIUYGV', introduced_in: '1939', model: 'M3 & M4 Naval (FEB 1942)' }
+        { type: 'I', notch: 'Y', turnover: 'Q', model: 'Enigma I', signal_mapping: 'EKMFLGDQVZNTOWYHXUSPAIBRCJ' },
+        { type: 'II', notch: 'M', turnover: 'E', model: 'Enigma I', signal_mapping: 'AJDKSIRUXBLHWTMCQGZNPYFVOE' },
+        { type: 'III', notch: 'D', turnover: 'V', model: 'Enigma I', signal_mapping: 'BDFHJLCPRTXVZNYEIWGAKMUSQO' },
+        { type: 'IV', notch: 'R', turnover: 'J', model: 'Enigma M3', signal_mapping: 'ESOVPZJAYQUIRHXLNFTGKDCMWB' },
+        { type: 'V', notch: 'H', turnover: 'Z', model: 'Enigma M3', signal_mapping: 'VZBRGITYUPSDNHLXAWMJQOFECK' },
+        { type: 'VI', notch: 'HU', turnover: 'ZM', model: 'Enigma M3 & M4 Naval', signal_mapping: 'JPGVOUMFYQBENHZRDKASXLICTW' },
+        { type: 'VII', notch: 'HU', turnover: 'ZM', model: 'Enigma M3 & M4 Naval', signal_mapping: 'NZJHGRCXMYSWBOUFAIVLPEKQDT' },
+        { type: 'VIII', notch: 'HU', turnover: 'ZM', model: 'Enigma M3 & M4 Naval', signal_mapping: 'FKQHTLXOCBJSPDZRAMEWNIUYGV' }
       ].freeze
 
-      def initialize(rotor_type: 'STATIC')
-        @rotor = setup_rotor(rotor_type)
+      # The position array is used to easily rotate positional numbers up to and including 26
+      POSITION_ARRAY = [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26
+      ].freeze
+
+      def initialize(type:, position: 1)
+        @rotor_hash = find_rotor_by_type(type)
+        @position_array = POSITION_ARRAY.rotate(position - 1)
+      end
+
+      def input_signal(signal_position)
+        signal_mapping.rotate(@position_array.first - 1)[signal_position - 1]
+      end
+
+      def step_rotor
+        @position_array.rotate!
       end
 
       private
 
-      def setup_rotor(rotor_type)
-        rotor_hash = ROTORS.find { |r| r[:type] == rotor_type }
+      def find_rotor_by_type(rotor_type)
+        ROTORS.find { |rotor| rotor[:type] == rotor_type }
+      end
 
+      def signal_mapping
+        @rotor_hash[:signal_mapping].scan(/\w/)
+      end
 
+      def turnover_points
+        @rotor_hash[:turnover].scan(/\w/)
       end
     end
   end
