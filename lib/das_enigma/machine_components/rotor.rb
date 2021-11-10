@@ -19,11 +19,11 @@ module DasEnigma
       ].freeze
 
       # The position array is used to easily rotate positional numbers up to and including 26
-      POSITION_ARRAY = [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26
-      ].freeze
+      POSITION_ARRAY = (1..26).to_a.freeze
 
-      def initialize(type:, position: 1)
+      ALPHABET_ARRAY = ('A'..'Z').to_a.freeze
+
+      def initialize(type:, ring_setting: 1, position: 1)
         @rotor_hash = find_rotor_by_type(type)
         @position_array = POSITION_ARRAY.rotate(position - 1)
       end
