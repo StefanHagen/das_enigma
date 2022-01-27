@@ -20,12 +20,14 @@ module DasEnigma
 
       # The position array is used to easily rotate positional numbers up to and including 26
       POSITION_ARRAY = (1..26).to_a.freeze
-
       ALPHABET_ARRAY = ('A'..'Z').to_a.freeze
+
+      attr_reader :notch
 
       def initialize(type:, ring_setting: 1, position: 1)
         @rotor_hash = find_rotor_by_type(type)
         @position_array = POSITION_ARRAY.rotate(position - 1)
+        @notch = @rotor_hash[:notch]
       end
 
       def input_signal(signal_position)
