@@ -24,8 +24,9 @@ module DasEnigma
 
       attr_reader :notch
 
-      def initialize(type:, ring_setting: 1, position: 1)
+      def initialize(type:, ring_setting: 'A', position: 1)
         @rotor_hash = find_rotor_by_type(type)
+        @ring_setting = ALPHABET_ARRAY.find_index(ring_setting) + 1
         @position_array = POSITION_ARRAY.rotate(position - 1)
         @notch = @rotor_hash[:notch]
       end
