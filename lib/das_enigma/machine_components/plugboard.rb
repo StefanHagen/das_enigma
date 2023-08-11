@@ -3,10 +3,10 @@
 module DasEnigma
   module MachineComponents
     # The plugboard is a physical machine component that allows you to swap input characters before (and after)
-    # encryption. It existed of a switchboard wich could be used in combination with a special 'double-jack' patch
+    # encryption. It consisted of a switchboard wich could be used in combination with a special 'double-jack' patch
     # cable. Plugging this one end of the cable (with 2 jacks) into the holes of the letter A, and the other end into
     # the holes of the letter Z, swapped these letters before the signal would get sent through. So with this setup
-    # pressing A wull sent the signal for letter Z to the static rotor. When a substituted signal comes back as a Z, it
+    # pressing A will send the signal for letter Z to the static rotor. When a substituted signal comes back as a Z, it
     # will get swapped for the letter A.
     class Plugboard
       attr_reader :plugboard
