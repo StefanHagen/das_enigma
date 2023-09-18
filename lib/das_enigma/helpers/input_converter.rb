@@ -12,7 +12,7 @@ module DasEnigma
       # character
       def convert
         @input_data.gsub!(' ', 'X')
-        @input_data.scan(/[a-zA-Z]/).join('').upcase
+        @input_data.scan(/[a-zA-Z]/).join.upcase
       end
     end
   end

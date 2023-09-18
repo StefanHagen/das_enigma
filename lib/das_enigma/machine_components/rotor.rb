@@ -13,9 +13,27 @@ module DasEnigma
         { type: 'III', notch: 'D', turnover: 'V', model: 'Enigma I', signal_mapping: 'BDFHJLCPRTXVZNYEIWGAKMUSQO' },
         { type: 'IV', notch: 'R', turnover: 'J', model: 'Enigma M3', signal_mapping: 'ESOVPZJAYQUIRHXLNFTGKDCMWB' },
         { type: 'V', notch: 'H', turnover: 'Z', model: 'Enigma M3', signal_mapping: 'VZBRGITYUPSDNHLXAWMJQOFECK' },
-        { type: 'VI', notch: 'HU', turnover: 'ZM', model: 'Enigma M3 & M4 Naval', signal_mapping: 'JPGVOUMFYQBENHZRDKASXLICTW' },
-        { type: 'VII', notch: 'HU', turnover: 'ZM', model: 'Enigma M3 & M4 Naval', signal_mapping: 'NZJHGRCXMYSWBOUFAIVLPEKQDT' },
-        { type: 'VIII', notch: 'HU', turnover: 'ZM', model: 'Enigma M3 & M4 Naval', signal_mapping: 'FKQHTLXOCBJSPDZRAMEWNIUYGV' }
+        {
+          type: 'VI',
+          notch: 'HU',
+          turnover: 'ZM',
+          model: 'Enigma M3 & M4 Naval',
+          signal_mapping: 'JPGVOUMFYQBENHZRDKASXLICTW'
+        },
+        {
+          type: 'VII',
+          notch: 'HU',
+          turnover: 'ZM',
+          model: 'Enigma M3 & M4 Naval',
+          signal_mapping: 'NZJHGRCXMYSWBOUFAIVLPEKQDT'
+        },
+        {
+          type: 'VIII',
+          notch: 'HU',
+          turnover: 'ZM',
+          model: 'Enigma M3 & M4 Naval',
+          signal_mapping: 'FKQHTLXOCBJSPDZRAMEWNIUYGV'
+        }
       ].freeze
 
       # The position array is used to easily rotate positional numbers up to and including 26

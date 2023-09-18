@@ -3,7 +3,7 @@
 # top-level namespace for the DasEnigma gem
 module DasEnigma
   # require all ruby files in the lib/das_enigma folder
-  Dir['./lib/das_enigma/**/*.rb'].sort.each do |file|
+  Dir['./lib/das_enigma/**/*.rb'].each do |file|
     require file
   end
 end
