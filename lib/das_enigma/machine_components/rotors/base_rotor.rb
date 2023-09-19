@@ -7,40 +7,63 @@ module DasEnigma
       # rotors were used historically, mostly 3 to 4 rotors. In combination with 1 or 2 reflectors and the plugboard,
       # they form the character substitution chain.
       class BaseRotor
-        attr_reader :type, :model, :notch, :turnover, :signal_mapping
+        attr_reader :type, :model, :notch, :turnover, :alphabet_mapping, :signal_mapping, :positional_mapping,
+                    :ring_setting, :position
 
-        # The position array is used to easily rotate positional numbers up to and including 26
-        POSITION_ARRAY = (1..26).to_a.freeze
-        ALPHABET_ARRAY = ('A'..'Z').to_a.freeze
+        attr_accessor :primed_for_stepping
 
-        def initialize(type:, ring_setting: 'A', position: 1)
-          # @rotor_hash = find_rotor_by_type(type)
-          # @ring_setting = ALPHABET_ARRAY.find_index(ring_setting) + 1
-          # @position_array = POSITION_ARRAY.rotate(position - 1)
-          # @notch = @rotor_hash[:notch]
+        POSITIONAL_MAPPING = (0..25).to_a.freeze
+        ALPHABET_MAPPING = ('A'..'Z').to_a.freeze
+
+        def initialize(ring_setting: 'A', position: 0)
+          @ring_setting = ring_setting
+          @position = position
+          @alphabet_mapping = ALPHABET_MAPPING
+          @positional_mapping = POSITIONAL_MAPPING
+          @primed_for_stepping = false
         end
 
-        def input_signal(signal_position)
-          signal_mapping.rotate(@position_array.first - 1)[signal_position - 1]
+        def signal_forward(signal_position:)
+          step_rotor if primed_for_stepping
+
+          signal_forward
         end
 
-        def step_rotor
-          @position_array.rotate!
+        def signal_reverse(signal_position:)
+          signal_reverse
         end
 
         private
 
-        def find_rotor_by_type(rotor_type)
-          ROTORS.find { |rotor| rotor[:type] == rotor_type }
+        def step_rotor
+          positional_mapping.rotate!
         end
 
-        def signal_mapping
-          @rotor_hash[:signal_mapping].scan(/\w/)
+        def ring_setting_index
+          @ring_setting_index ||= ALPHABET_MAPPING.find_index(ring_setting)
         end
 
-        def turnover_points
-          @rotor_hash[:turnover].scan(/\w/)
-        end
+        # def input_signal(signal_position)
+        #   signal_mapping.rotate(@position_array.first - 1)[signal_position - 1]
+        # end
+
+        # def step_rotor
+        #   @position_array.rotate!
+        # end
+
+        # private
+
+        # # def find_rotor_by_type(rotor_type)
+        # #   ROTORS.find { |rotor| rotor[:type] == rotor_type }
+        # # end
+
+        # def signal_mapping
+        #   @rotor_hash[:signal_mapping].scan(/\w/)
+        # end
+
+        # def turnover_points
+        #   @rotor_hash[:turnover].scan(/\w/)
+        # end
       end
     end
   end
