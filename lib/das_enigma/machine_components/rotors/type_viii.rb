@@ -9,10 +9,10 @@ module DasEnigma
           super
 
           @type = 'VIII'
-          @notch = 'HU'
-          @turnover = 'ZM'
           @model = 'm3 m4 naval'
-          @signal_mapping = 'FKQHTLXOCBJSPDZRAMEWNIUYGV'
+          @notch = 'HU'.chars
+          @turnover = 'ZM'.chars
+          @signal_mapping = 'FKQHTLXOCBJSPDZRAMEWNIUYGV'.chars
         end
       end
     end

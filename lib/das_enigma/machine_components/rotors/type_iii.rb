@@ -9,10 +9,10 @@ module DasEnigma
           super
 
           @type = 'III'
-          @notch = 'D'
-          @turnover = 'V'
           @model = '1'
-          @signal_mapping = 'BDFHJLCPRTXVZNYEIWGAKMUSQO'
+          @notch = 'D'.chars
+          @turnover = 'V'.chars
+          @signal_mapping = 'BDFHJLCPRTXVZNYEIWGAKMUSQO'.chars
         end
       end
     end

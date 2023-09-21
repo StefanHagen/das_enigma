@@ -9,10 +9,10 @@ module DasEnigma
           super
 
           @type = 'II'
-          @notch = 'M'
-          @turnover = 'E'
           @model = '1'
-          @signal_mapping = 'AJDKSIRUXBLHWTMCQGZNPYFVOE'
+          @notch = 'M'.chars
+          @turnover = 'E'.chars
+          @signal_mapping = 'AJDKSIRUXBLHWTMCQGZNPYFVOE'.chars
         end
       end
     end
