@@ -8,39 +8,50 @@ module DasEnigma
       # they form the character substitution chain.
       class BaseRotor
         attr_reader :type, :model, :notch, :turnover, :alphabet_mapping, :signal_mapping, :positional_mapping,
-                    :ring_setting, :position
+                    :ring_setting, :position, :first_rotor
 
-        attr_accessor :primed_for_stepping
-
-        POSITIONAL_MAPPING = (0..25).to_a.freeze
-        ALPHABET_MAPPING = ('A'..'Z').to_a.freeze
-
-        def initialize(ring_setting: 'A', position: 0)
+        def initialize(ring_setting:, position:)
           @ring_setting = ring_setting
           @position = position
-          @alphabet_mapping = ALPHABET_MAPPING
-          @positional_mapping = POSITIONAL_MAPPING
+          @alphabet_mapping = ('A'..'Z').to_a
+          @positional_mapping = (0..25).to_a
           @primed_for_stepping = false
+
+          set_alphabet_ring
+          set_rotor_position
         end
 
         def signal_forward(signal_position:)
           step_rotor if primed_for_stepping
 
-          signal_forward
+          # Signal forward
         end
 
         def signal_reverse(signal_position:)
-          signal_reverse
+          # Signal reverse
         end
 
         private
 
-        def step_rotor
-          positional_mapping.rotate!
+        def set_alphabet_ring
+          ring_index = @alphabet_mapping.index(@ring_setting)
+          @alphabet_mapping.rotate!(ring_index)
         end
 
-        def ring_setting_index
-          @ring_setting_index ||= ALPHABET_MAPPING.find_index(ring_setting)
+        def set_rotor_position
+          position_index = @positional_mapping.index(@position)
+          @alphabet_mapping.rotate!(position_index)
+          @signal_mapping.rotate!(position_index)
+        end
+
+        def step_rotor
+          positional_mapping.rotate!
+          @alphabet_mapping.rotate!
+          @signal_mapping.rotate!
+        end
+
+        def primed_for_stepping
+          false
         end
       end
     end

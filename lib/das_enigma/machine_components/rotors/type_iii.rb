@@ -5,7 +5,7 @@ module DasEnigma
     module Rotors
       # This is the Type III rotor
       class TypeIII < BaseRotor
-        def initialize
+        def initialize(ring_setting: 'A', position: 0)
           super
 
           @type = 'III'

@@ -5,14 +5,14 @@ module DasEnigma
     module Rotors
       # This is the Type I rotor
       class TypeI < BaseRotor
-        def initialize
-          super
-
+        def initialize(ring_setting: 'A', position: 0)
           @type = 'I'
           @model = '1'
           @notch = 'Y'.chars
           @turnover = 'Q'.chars
           @signal_mapping = 'EKMFLGDQVZNTOWYHXUSPAIBRCJ'.chars
+
+          super
         end
       end
     end

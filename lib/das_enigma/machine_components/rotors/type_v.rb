@@ -5,7 +5,7 @@ module DasEnigma
     module Rotors
       # This is the Type IV rotor
       class TypeIV < BaseRotor
-        def initialize
+        def initialize(ring_setting: 'A', position: 0)
           super
 
           @type = 'V'
