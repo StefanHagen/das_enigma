@@ -8,8 +8,8 @@ module DasEnigma
         def initialize(ring_setting: 'A', position: 0)
           @type = 'Static'
           @model = ''
-          @notch = []
-          @turnover = []
+          @notches = []
+          @turnovers = []
           @signal_mapping = ('A'..'Z').to_a
 
           super

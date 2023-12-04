@@ -10,8 +10,8 @@ module DasEnigma
 
           @type = 'VIII'
           @model = 'm3 m4 naval'
-          @notch = 'HU'.chars
-          @turnover = 'ZM'.chars
+          @notches = 'HU'.chars
+          @turnovers = 'ZM'.chars
           @signal_mapping = 'FKQHTLXOCBJSPDZRAMEWNIUYGV'.chars
         end
       end

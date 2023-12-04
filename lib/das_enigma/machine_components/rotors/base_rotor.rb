@@ -7,8 +7,8 @@ module DasEnigma
       # rotors were used historically, mostly 3 to 4 rotors. In combination with 1 or 2 reflectors and the plugboard,
       # they form the character substitution chain.
       class BaseRotor
-        attr_reader :type, :model, :notch, :turnover, :alphabet_mapping, :signal_mapping, :positional_mapping,
-                    :ring_setting, :position, :first_rotor
+        attr_reader :type, :model, :notches, :turnover, :alphabet_mapping, :signal_mapping, :positional_mapping,
+                    :ring_setting, :position
 
         def initialize(ring_setting:, position:)
           @ring_setting = ring_setting
@@ -22,13 +22,26 @@ module DasEnigma
         end
 
         def signal_forward(signal_position:)
-          step_rotor if primed_for_stepping
-
           # Signal forward
         end
 
         def signal_reverse(signal_position:)
           # Signal reverse
+        end
+
+        def in_notch_position?
+          notch_positions = @notches.map { |notch| alphabet_mapping.index(notch) }
+          notch_positions.include?(positional_mapping.first.to_i)
+        end
+
+        def in_turnover_position?
+          notch_positions = @turnovers.map { |turnover| alphabet_mapping.index(turnover) }
+          notch_positions.include?(positional_mapping.first.to_i)
+        end
+
+        def step_rotor
+          @positional_mapping.rotate!
+          @alphabet_mapping.rotate!
         end
 
         private
@@ -41,17 +54,6 @@ module DasEnigma
         def set_rotor_position
           position_index = @positional_mapping.index(@position)
           @alphabet_mapping.rotate!(position_index)
-          @signal_mapping.rotate!(position_index)
-        end
-
-        def step_rotor
-          positional_mapping.rotate!
-          @alphabet_mapping.rotate!
-          @signal_mapping.rotate!
-        end
-
-        def primed_for_stepping
-          false
         end
       end
     end

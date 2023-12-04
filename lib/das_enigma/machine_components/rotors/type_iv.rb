@@ -10,8 +10,8 @@ module DasEnigma
 
           @type = 'IV'
           @model = 'm3'
-          @notch = 'R'.chars
-          @turnover = 'J'.chars
+          @notches = 'R'.chars
+          @turnovers = 'J'.chars
           @signal_mapping = 'ESOVPZJAYQUIRHXLNFTGKDCMWB'.chars
         end
       end

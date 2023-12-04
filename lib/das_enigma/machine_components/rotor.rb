@@ -46,7 +46,7 @@ module DasEnigma
         @rotor_hash = find_rotor_by_type(type)
         @ring_setting = ALPHABET_ARRAY.find_index(ring_setting) + 1
         @position_array = POSITION_ARRAY.rotate(position - 1)
-        @notch = @rotor_hash[:notch]
+        @notches = @rotor_hash[:notch]
       end
 
       def input_signal(signal_position)
