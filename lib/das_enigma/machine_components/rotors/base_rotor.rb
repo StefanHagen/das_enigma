@@ -22,7 +22,8 @@ module DasEnigma
         end
 
         def signal_forward(signal_position:)
-          # Signal forward
+          outgoing_character = @signal_mapping[signal_position]
+          @alphabet_mapping.index(outgoing_character)
         end
 
         def signal_reverse(signal_position:)
@@ -42,6 +43,7 @@ module DasEnigma
         def step_rotor
           @positional_mapping.rotate!
           @alphabet_mapping.rotate!
+          @signal_mapping.rotate!
         end
 
         private
