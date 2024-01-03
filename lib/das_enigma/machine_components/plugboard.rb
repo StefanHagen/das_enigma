@@ -15,14 +15,14 @@ module DasEnigma
         @plugboard = setup_plugboard(settings)
       end
 
-      def substitute_ingoing_signal(signal: nil)
+      def signal_forward(signal: nil)
         # return nil if signal is nil or not a symbol
         return if signal.nil? || !signal.is_a?(Symbol)
 
         plugboard[signal].to_sym
       end
 
-      def substitute_outgoing_signal(signal: nil)
+      def signal_reverse(signal: nil)
         # return nil if signal is nil or not a symbol
         return if signal.nil? || !signal.is_a?(Symbol)
 
